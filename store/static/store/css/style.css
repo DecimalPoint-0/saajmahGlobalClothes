@@ -1,0 +1,76 @@
+
+:root{
+  --bg:#fffdf6;
+  --card:#ffffff;
+  --accent:#ff7aa2;
+  --accent-2:#ffd166;
+  --muted:#6b6b6b;
+  --accent-3:#7bd389;
+}
+
+*{box-sizing:border-box}
+body{font-family: 'Nunito', system-ui, -apple-system, sans-serif;margin:0;background:var(--bg);color:#222}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+
+/* Header */
+.site-header{background:linear-gradient(90deg, #fff, #fff7f0);padding:12px 0;border-bottom:6px solid rgba(0,0,0,0.03)}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;text-decoration:none;color:inherit}
+.brand .logo{font-size:36px;margin-right:10px}
+.brand-text h1{font-family:'Fredoka One',cursive;margin:0;font-size:24px}
+.brand-text small{display:block;color:var(--muted);font-size:12px}
+.main-nav a{margin-left:14px;text-decoration:none;color:#333;font-weight:600}
+
+/* Hero */
+.hero{padding:36px 0;background:linear-gradient(180deg,#fffef8, #fff3ee)}
+.hero-inner{display:flex;gap:24px;align-items:center}
+.hero-copy h2{font-size:30px;margin:0 0 12px}
+.hero-copy p{color:var(--muted);margin:0 0 18px}
+.btn-large{padding:12px 20px;border-radius:14px;background:var(--accent);color:#fff;border:none}
+.hero-image img{width:320px;max-width:100%}
+
+.section-title{font-size:22px;color:#333;margin:8px 0 18px}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,0.06);text-align:left}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+.card h3{margin:10px 0 6px;font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.desc{font-size:14px;color:#444}
+.btn{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:12px;background:#fff;border:2px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:700}
+.btn-accent{background:var(--accent);color:#fff;border:none}
+
+/* About & Contact */
+.about{padding:18px 0}
+.contact-form{max-width:720px}
+.input{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin:6px 0}
+
+/* Detail page */
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:28px 20px}
+.gallery{display:flex;flex-direction:column;gap:12px}
+.main-image img{width:100%;height:420px;object-fit:cover;border-radius:14px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumb img{width:64px;height:64px;object-fit:cover;border-radius:8px;cursor:pointer;border:3px solid transparent}
+.thumb button{background:none;border:none;padding:0}
+.info h2{margin-top:0}
+.desc{line-height:1.45}
+
+.booking-form .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.booking-form label{display:block;font-weight:700;margin-bottom:6px;font-size:13px}
+.booking-form .full{grid-column:1 / -1}
+.form-actions{text-align:right;margin-top:12px}
+
+/* Footer */
+.site-footer{background:#fff;padding:24px 20px;border-top:1px solid #f1e7e7}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.site-legal{text-align:center;padding:10px;color:var(--muted);font-size:13px}
+
+/* Responsiveness */
+@media(max-width:900px){
+  .hero-inner{flex-direction:column}
+  .detail{grid-template-columns:1fr;padding:12px}
+  .booking-form .form-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+

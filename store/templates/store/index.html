@@ -1,0 +1,59 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h2>Bright, playful costumes for school and party days</h2>
+        <p>Saajmah makes it easy to find and book the perfect costume for costume day, school plays, and parties.</p>
+        <a class="btn btn-large" href="#shop">Browse Costumes</a>
+      </div>
+      <div class="hero-image">
+        <img src="{% static 'store/img/hero-illustration.svg' %}" alt="kids in costumes">
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" class="container">
+    <h2 class="section-title">Our Costumes</h2>
+    <div class="grid">
+      {% for c in costumes %}
+        <article class="card">
+          <a href="{% url 'store:detail' c.slug %}">
+            {% with img=c.image %}
+              {% if img %}
+                <img src="{{ img.url }}" alt="{{ c.name }}">
+              {% else %}
+                <img src="{% static 'store/img/default-costume.svg' %}" alt="{{ c.name }}">
+              {% endif %}
+            {% endwith %}
+            <h3>{{ c.name }}</h3>
+          </a>
+          <p class="meta">{{ c.age_range }} • N{{ c.price }}</p>
+          <p class="desc">{{ c.description|truncatechars:100 }}</p>
+          <a class="btn" href="{% url 'store:detail' c.slug %}">Book</a>
+        </article>
+      {% empty %}
+        <p>No costumes available right now. Check back soon!</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="about" class="about container">
+    <h2>About Saajmah</h2>
+    <p>We provide colourful, well-maintained costumes for children. Schools and parents can browse our collection and place bookings online. We handle cleaning and delivery details after you place an order.</p>
+  </section>
+
+  <section id="contact" class="contact container">
+    <h2>Contact Us</h2>
+    <p>If you have questions or need help, send us a message and we'll get back to you.</p>
+    <form action="{% url 'store:contact' %}" method="post" class="contact-form">
+      {% csrf_token %}
+      <div class="form-row"><input name="name" placeholder="Your name" class="input" required></div>
+      <div class="form-row"><input name="email" placeholder="Your email" class="input" required></div>
+      <div class="form-row"><textarea name="message" rows="4" placeholder="Message" class="input" required></textarea></div>
+      <div class="form-row"><button class="btn btn-accent" type="submit">Send message</button></div>
+    </form>
+  </section>
+
+{% endblock %}

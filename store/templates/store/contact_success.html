@@ -1,0 +1,8 @@
+{% extends 'store/base.html' %}
+{% block content %}
+  <section class="container success">
+    <h2>Thanks — we got your message</h2>
+    <p>We'll get back to you shortly.</p>
+    <a class="btn" href="{% url 'store:index' %}">Back to home</a>
+  </section>
+{% endblock %}

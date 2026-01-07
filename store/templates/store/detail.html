@@ -1,0 +1,93 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+  <section class="container detail">
+    <div class="gallery">
+      <div class="main-image" id="mainImage">
+        {% if costume.images.first %}
+          <img src="{{ costume.images.first.image.url }}" alt="{{ costume.name }}">
+        {% elif costume.image %}
+          <img src="{{ costume.image.url }}" alt="{{ costume.name }}">
+        {% else %}
+          <img src="{% static 'store/img/default-costume.svg' %}" alt="{{ costume.name }}">
+        {% endif %}
+      </div>
+      <div class="thumbs">
+        {% for img in costume.images.all %}
+          <button class="thumb" data-src="{{ img.image.url }}"><img src="{{ img.image.url }}" alt="{{ img.alt_text }}"></button>
+        {% endfor %}
+        {% if not costume.images.exists and costume.image %}
+          <div class="thumb"><img src="{{ costume.image.url }}" alt="{{ costume.name }}"></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="info">
+      <h2>{{ costume.name }}</h2>
+      <p class="meta">{{ costume.age_range }} • N{{ costume.price }}</p>
+      <p class="desc">{{ costume.description }}</p>
+
+      <h3>Book this costume</h3>
+      <form method="post" class="booking-form">
+        {% csrf_token %}
+        <div class="form-grid">
+          <div>
+            <label>Name</label>
+            {{ form.customer_name }}
+          </div>
+          <div>
+            <label>Email</label>
+            {{ form.email }}
+          </div>
+          <div>
+            <label>Phone</label>
+            {{ form.phone }}
+          </div>
+          <div>
+            <label>Organization</label>
+            {{ form.organization }}
+          </div>
+          <div>
+            <label>Quantity</label>
+            {{ form.quantity }}
+          </div>
+          <div>
+            <label>Size</label>
+            {{ form.size }}
+          </div>
+          <div>
+            <label>Color</label>
+            {{ form.color }}
+          </div>
+          <div>
+            <label>From</label>
+            {{ form.date_from }}
+          </div>
+          <div>
+            <label>To</label>
+            {{ form.date_to }}
+          </div>
+          <div class="full">
+            <label>Notes</label>
+            {{ form.notes }}
+          </div>
+        </div>
+        <div class="form-actions"><button class="btn btn-accent" type="submit">Place Booking</button></div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // simple thumbnail swap
+    document.addEventListener('DOMContentLoaded', function(){
+      const main = document.getElementById('mainImage');
+      document.querySelectorAll('.thumb').forEach(btn=>{
+        btn.addEventListener('click', function(e){
+          const src = this.dataset ? this.dataset.src : (this.querySelector('img')||{}).src;
+          if(!src) return;
+          main.querySelector('img').src = src;
+        })
+      })
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'store/base.html' %}
+{% block content %}
+  <div class="success">
+    <h2>Thanks! Your booking was received</h2>
+    <p>We received your booking and will contact you soon to confirm details.</p>
+    <a class="btn" href="{% url 'store:index' %}">Back to shop</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <rect width="100%" height="100%" fill="#fff8f3"/>
+  <g transform="translate(40,40)">
+    <circle cx="80" cy="80" r="40" fill="#ff7aa2" />
+    <rect x="140" y="40" width="120" height="120" rx="18" fill="#ffd166" />
+    <circle cx="230" cy="140" r="30" fill="#7bd389" />
+    <text x="300" y="120" font-family="Nunito, sans-serif" font-size="22" fill="#444">Let's make costume day fun!</text>
+  </g>
+</svg>
