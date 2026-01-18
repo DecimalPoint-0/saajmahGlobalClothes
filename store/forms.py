@@ -21,11 +21,19 @@ class OrderForm(forms.ModelForm):
         self.fields['phone'].widget.attrs.update({'class': 'input'})
         self.fields['organization'].widget.attrs.update({'class': 'input'})
         self.fields['quantity'].widget.attrs.update({'class': 'input', 'min': '1'})
-        self.fields['size'].queryset = Size.objects.none()
-        self.fields['color'].queryset = Color.objects.none()
+        # default to all sizes/colors, but prefer costume-specific choices when available
+        self.fields['size'].queryset = Size.objects.all()
+        self.fields['color'].queryset = Color.objects.all()
         if costume:
-            self.fields['size'].queryset = costume.sizes.all()
-            self.fields['color'].queryset = costume.colors.all()
+            if costume.sizes.exists():
+                self.fields['size'].queryset = costume.sizes.all()
+            if costume.colors.exists():
+                self.fields['color'].queryset = costume.colors.all()
+        # set a friendly empty label for ModelChoiceFields so users see a prompt
+        if hasattr(self.fields['size'], 'empty_label'):
+            self.fields['size'].empty_label = 'Select size'
+        if hasattr(self.fields['color'], 'empty_label'):
+            self.fields['color'].empty_label = 'Select color'
         # add classes to size/color selects
         self.fields['size'].widget.attrs.update({'class': 'input'})
         self.fields['color'].widget.attrs.update({'class': 'input'})

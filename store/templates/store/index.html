@@ -8,8 +8,18 @@
         <p>Saajmah makes it easy to find and book the perfect costume for costume day, school plays, and parties.</p>
         <a class="btn btn-large" href="#shop">Browse Costumes</a>
       </div>
-      <div class="hero-image">
-        <img src="{% static 'store/img/hero-illustration.svg' %}" alt="kids in costumes">
+      <div class="hero-carousel">
+        <div class="carousel" aria-roledescription="carousel" aria-label="Featured costumes">
+          <div class="carousel-slide active">
+            <img src="/media/costume_images/201.jpg" alt="featured costume 1">
+          </div>
+          <div class="carousel-slide">
+            <img src="/media/costume_images/202.jpg" alt="featured costume 2">
+          </div>
+          <div class="carousel-slide">
+            <img src="/media/costume_images/203.jpg" alt="featured costume 3">
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -19,7 +29,7 @@
     <div class="grid">
       {% for c in costumes %}
         <article class="card">
-          <a href="{% url 'store:detail' c.slug %}">
+          <a href="{% url 'store:detail' c.slug %}" class="card-media">
             {% with img=c.image %}
               {% if img %}
                 <img src="{{ img.url }}" alt="{{ c.name }}">
@@ -27,11 +37,14 @@
                 <img src="{% static 'store/img/default-costume.svg' %}" alt="{{ c.name }}">
               {% endif %}
             {% endwith %}
-            <h3>{{ c.name }}</h3>
+            <div class="price">₦{{ c.price }}</div>
           </a>
-          <p class="meta">{{ c.age_range }} • N{{ c.price }}</p>
-          <p class="desc">{{ c.description|truncatechars:100 }}</p>
-          <a class="btn" href="{% url 'store:detail' c.slug %}">Book</a>
+          <div class="card-body">
+            <a href="{% url 'store:detail' c.slug %}"><h3>{{ c.name }}</h3></a>
+            <p class="meta">Age: {% if c.sizes.all %}{{ c.sizes.all.0.name }}{% elif c.colors.all %}{{ c.colors.all.0.name }}{% elif c.age_range %}{{ c.age_range }}{% endif %}</p>
+            <!-- <p class="desc">{{ c.description|truncatechars:120 }}</p> -->
+            <div class="card-actions"><a class="btn btn-accent" href="{% url 'store:detail' c.slug %}">Book</a></div>
+          </div>
         </article>
       {% empty %}
         <p>No costumes available right now. Check back soon!</p>
@@ -39,21 +52,35 @@
     </div>
   </section>
 
-  <section id="about" class="about container">
-    <h2>About Saajmah</h2>
-    <p>We provide colourful, well-maintained costumes for children. Schools and parents can browse our collection and place bookings online. We handle cleaning and delivery details after you place an order.</p>
-  </section>
+  <section style="background-color: white;">
+      <div id="about" class="about container">
+        <div class="about-grid">
+          <div class="about-copy">
+            <h2>About Saajmah</h2>
+            <p>We provide colourful, well-maintained costumes for children. Schools and parents can browse our collection and place bookings online. We handle cleaning and delivery details after you place an order.</p>
+            <a href="/about/" class="btn btn-large btn-outline">Know more</a>
+          </div>
+          <div class="about-image">
+            <img src="/media/costume_images/about-us.jpg" alt="Children wearing costumes">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <section id="contact" class="contact container">
-    <h2>Contact Us</h2>
-    <p>If you have questions or need help, send us a message and we'll get back to you.</p>
-    <form action="{% url 'store:contact' %}" method="post" class="contact-form">
-      {% csrf_token %}
-      <div class="form-row"><input name="name" placeholder="Your name" class="input" required></div>
-      <div class="form-row"><input name="email" placeholder="Your email" class="input" required></div>
-      <div class="form-row"><textarea name="message" rows="4" placeholder="Message" class="input" required></textarea></div>
-      <div class="form-row"><button class="btn btn-accent" type="submit">Send message</button></div>
-    </form>
-  </section>
-
+    <section id="contact" class="contact container">
+      <h2>Contact Us</h2>
+      <p>If you have questions or need help, send us a message and we'll get back to you.</p>
+      <div class="contact-grid">
+        <form action="{% url 'store:contact' %}" method="post" class="contact-form">
+          {% csrf_token %}
+          <div class="form-row"><input name="name" placeholder="Your name" class="input" required></div>
+          <div class="form-row"><input name="email" placeholder="Your email" class="input" required></div>
+          <div class="form-row"><textarea name="message" rows="5" placeholder="Message" class="input" required></textarea></div>
+          <div class="form-row"><button class="btn btn-accent" type="submit">Send message</button></div>
+        </form>
+        <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.001097943776!2d7.218588575017104!3d8.879488391176004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e659c91bd80e5%3A0xf46e1071628663d0!2sIslamic%20Leadership%20Academy%20ILA..!5e0!3m2!1sen!2sng!4v1768759513051!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
 {% endblock %}

@@ -9,3 +9,5 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('order/success/', views.order_success, name='order_success'),
 ]
+
+
